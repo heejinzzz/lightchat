@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+service MessageManager {
+  rpc createSession(CreateSessionRequest) returns(CreateSessionResponse) {}
+  rpc getMessages(GetMessagesRequest) returns(GetMessagesResponse) {}
+  rpc getSessionList(GetSessionListRequest) returns(GetSessionListResponse) {}
+  rpc search(SearchRequest) returns(SearchResponse) {}
+  rpc sendMessage(MessageTile) returns(SendMessageResponse) {}
+}
+
+enum GetRequestType {
+  CHAT = 0;
+  HISTORY = 1;
+}
+
+enum MessageType {
+  TEXT = 0;
+  IMAGE = 1;
+  VIDEO = 2;
+  FILE = 3;
+}
+
+message MessageTile {
+  string messageId = 1;
+  int64 countId = 2;
+  string userId = 3;
+  MessageType type = 4;
+  string content = 5;
+  int64 size = 6;
+  int64 timestamp = 7;
+}
+
+message CreateSessionRequest {
+  string sessionId = 1;
+  string userId = 2;
+}
+
+message CreateSessionResponse {
+  bool succeed = 1;
+}
+
+message GetMessagesRequest {
+  string sessionId = 1;
+  GetRequestType type = 2;
+  string targetMessageId = 3;
+  bool isStartPage = 4;
+  string lastMessageId = 5;
+}
+
+message GetMessagesResponse {
+  repeated MessageTile messages = 1;
+  bool isLastPage = 2;
+}
+
+message GetSessionListRequest {
+  string userId = 1;
+}
+
+message GetSessionListResponse {
+  repeated MessageTile messages = 1;
+}
+
+message SearchRequest {
+  string userId = 1;
+  string keyword = 2;
+}
+
+message SearchResponse {
+  repeated MessageTile messages = 1;
+}
+
+message SendMessageResponse {
+  string messageId = 1;
+}

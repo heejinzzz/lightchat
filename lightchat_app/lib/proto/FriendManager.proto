@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+service FriendManager {
+  rpc acceptNewFriend(NewFriendRequest) returns(acceptNewFriendResponse) {}
+  rpc changeRemarkName(changeRemarkNameRequest) returns(changeRemarkNameResponse) {}
+  rpc checkFriend(checkFriendRequest) returns(checkFriendResponse) {}
+  rpc deleteFriend(deleteFriendRequest) returns(deleteFriendResponse) {}
+  rpc getFriends(getFriendsRequest) returns(getFriendsResponse) {}
+  rpc getNewFriendRequests(getNewFriendRequestsRequest) returns(getNewFriendRequestsResponse) {}
+  rpc rejectNewFriend(NewFriendRequest) returns(rejectNewFriendResponse) {}
+  rpc sendNewFriendRequest(NewFriendRequest) returns(sendNewFriendRequestResponse) {}
+}
+
+enum NewFriendRequestState {
+  WAIT_FOR_ACCEPT = 0;
+  ACCEPTED = 1;
+  REJECTED = 2;
+}
+
+message NewFriendRequest {
+  int64 requestId = 1;
+  string fromId = 2;
+  string toId = 3;
+  NewFriendRequestState state = 4;
+  string content = 5;
+  string fromRemarkName = 6;
+  string toRemarkName = 7;
+}
+
+message acceptNewFriendResponse {
+  bool succeed = 1;
+}
+
+message changeRemarkNameRequest {
+  string id = 1;
+  string friendId = 2;
+  string newRemarkName = 3;
+}
+
+message changeRemarkNameResponse {
+  bool isFriend = 1;
+  bool succeed = 2;
+}
+
+message checkFriendRequest {
+  string id = 1;
+  string targetId = 2;
+}
+
+message checkFriendResponse {
+  bool isFriend = 1;
+  string remarkName = 2;
+}
+
+message deleteFriendRequest {
+  string id = 1;
+  string friendId = 2;
+}
+
+message deleteFriendResponse {
+  bool succeed = 1;
+}
+
+message getFriendsRequest {
+  string id = 1;
+}
+
+message getFriendsResponse {
+  repeated string ids = 1;
+}
+
+message getNewFriendRequestsRequest {
+  string id = 1;
+}
+
+message getNewFriendRequestsResponse {
+  repeated NewFriendRequest requests = 1;
+}
+
+message rejectNewFriendResponse {
+  bool succeed = 1;
+}
+
+message sendNewFriendRequestResponse {
+  bool succeed = 1;
+}

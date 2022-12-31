@@ -1,0 +1,89 @@
+version: "3"
+
+services:
+  LightChat-MongoDB:
+    container_name: LightChat-MongoDB
+    image: mongo:6.0.2
+    restart: always
+    ports:
+      - "7066:27017"
+    volumes:
+      - ./data/MongoDB:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: lightchat
+    networks:
+      - LightChat
+
+  LightChat-UserManager:
+    container_name: LightChat-UserManager
+    image: heejinzzz/lightchat-usermanager:v1.0.0
+    restart: always
+    ports:
+      - "7060:7060"
+    networks:
+      - LightChat
+    depends_on:
+      - LightChat-MongoDB
+
+  LightChat-FileManager:
+    container_name: LightChat-FileManager
+    image: heejinzzz/lightchat-filemanager:v1.0.0
+    restart: always
+    ports:
+      - "7061:7061"
+    volumes:
+      - ./data/FileManager/static:/LightChat/FileManager/static
+    networks:
+      - LightChat
+    depends_on:
+      - LightChat-MongoDB
+
+  LightChat-FriendManager:
+    container_name: LightChat-FriendManager
+    image: heejinzzz/lightchat-friendmanager:v1.0.0
+    restart: always
+    ports:
+      - "7062:7062"
+    networks:
+      - LightChat
+    depends_on:
+      - LightChat-MongoDB
+
+  LightChat-FriendCircleManager:
+    container_name: LightChat-FriendCircleManager
+    image: heejinzzz/lightchat-friendcirclemanager:v1.0.0
+    restart: always
+    ports:
+      - "7063:7063"
+    networks:
+      - LightChat
+    depends_on:
+      - LightChat-FriendManager
+
+  LightChat-ChatManager:
+    container_name: LightChat-ChatManager
+    image: heejinzzz/lightchat-chatmanager:v1.0.0
+    restart: always
+    ports:
+      - "7064:7064"
+      - "7065:7065"
+    networks:
+      - LightChat
+    depends_on:
+      - LightChat-MongoDB
+
+  LightChat-portainer:
+    container_name: LightChat-portainer
+    image: portainer/portainer-ce:2.16.2
+    restart: always
+    ports:
+      - "7067:8000"
+      - "7068:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - LightChat
+
+networks:
+  LightChat:

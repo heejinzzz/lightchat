@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4250713",
+      "name": "女",
+      "font_class": "nv",
+      "unicode": "e6c3",
+      "unicode_decimal": 59075
+    },
+    {
+      "icon_id": "7596846",
+      "name": "24gf-portraitMale",
+      "font_class": "24gf-portraitMale",
+      "unicode": "eb29",
+      "unicode_decimal": 60201
+    }
+  ]
+}

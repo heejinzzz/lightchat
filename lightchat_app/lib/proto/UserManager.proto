@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+service UserManager {
+  rpc getUserInfoById(getUserInfoByIdRequest) returns(getUserInfoByIdResponse) {}
+  rpc getUserInfoByNumber(getUserInfoByNumberRequest) returns(getUserInfoByNumberResponse) {}
+  rpc loginWithPassword(loginWithPasswordRequest) returns(loginWithPasswordResponse) {}
+  rpc loginWithSMS(loginWithSMSRequest) returns(loginWithSMSResponse) {}
+  rpc changeUserName(changeUserNameRequest) returns(changeUserNameResponse) {}
+  rpc changeUserGender(changeUserGenderRequest) returns(changeUserGenderResponse) {}
+  rpc register(registerRequest) returns(registerResponse) {}
+  rpc requestSMS(requestSMSRequest) returns(requestSMSResponse) {}
+}
+
+enum Gender {
+  MALE = 0;
+  FEMALE = 1;
+}
+
+enum SMSType {
+  REGISTER = 0;
+  LOGIN = 1;
+}
+
+message getUserInfoByIdRequest {
+  string id = 1;
+}
+
+message getUserInfoByIdResponse {
+  bool exist = 1;
+  string name = 2;
+  Gender gender = 3;
+}
+
+message getUserInfoByNumberRequest {
+  string number = 1;
+}
+
+message getUserInfoByNumberResponse {
+  bool exist = 1;
+  string id = 2;
+  string name = 3;
+  Gender gender = 4;
+}
+
+message loginWithPasswordRequest {
+  string number = 1;
+  string password = 2;
+}
+
+message loginWithPasswordResponse {
+  bool succeed = 1;
+  string id = 2;
+}
+
+message loginWithSMSRequest {
+  string number = 1;
+}
+
+message loginWithSMSResponse {
+  bool succeed = 1;
+  string id = 2;
+}
+
+message changeUserNameRequest {
+  string id = 1;
+  string newName = 2;
+}
+
+message changeUserNameResponse {
+  bool succeed = 1;
+}
+
+message changeUserGenderRequest {
+  string id = 1;
+  Gender newGender = 2;
+}
+
+message changeUserGenderResponse {
+  bool succeed = 1;
+}
+
+message registerRequest {
+  string number = 1;
+  string password = 2;
+  string name = 3;
+  string id = 4;
+  Gender gender = 5;
+}
+
+message registerResponse {
+  bool idCheck = 1;
+  bool numberCheck = 2;
+}
+
+message requestSMSRequest {
+  string number = 1;
+  SMSType type = 2;
+}
+
+message requestSMSResponse {
+  string code = 1;
+  int32 validMinutes = 2;
+}

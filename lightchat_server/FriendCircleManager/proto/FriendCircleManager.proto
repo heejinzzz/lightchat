@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+service FriendCircleManager {
+  rpc delete(DeleteRequest) returns(DeleteResponse) {}
+  rpc getFriendCircles(GetFriendCirclesRequest) returns(GetFriendCirclesResponse) {}
+  rpc getDetail(GetDetailRequest) returns(FriendCircle) {}
+  rpc publish(FriendCircle) returns(PublishResponse) {}
+  rpc sendComment(SendCommentRequest) returns(SendCommentResponse) {}
+  rpc thumb(ThumbRequest) returns(ThumbResponse) {}
+}
+
+enum CommentType {
+  COMMENT = 0;
+  REPLY = 1;
+}
+
+message Comment {
+  CommentType type = 1;
+  string fromId = 2;
+  string toId = 3;
+  string content = 4;
+  int64 timestamp = 5;
+}
+
+message FriendCircle {
+  int64 id = 1;
+  string userId = 2;
+  string content = 3;
+  int32 imageNum = 4;
+  int64 timestamp = 5;
+  repeated string thumbUpIds = 6;
+  repeated Comment comments = 7;
+}
+
+message DeleteRequest {
+  string userId = 1;
+  int64 friendCircleId = 2;
+}
+
+message DeleteResponse {
+  bool succeed = 1;
+}
+
+message GetFriendCirclesRequest {
+  bool broadcast = 1;
+  string userId = 2;
+}
+
+message GetFriendCirclesResponse {
+  repeated int64 ids = 1;
+}
+
+message GetDetailRequest {
+  int64 id = 1;
+}
+
+message PublishResponse {
+  bool succeed = 1;
+  int64 id = 2;
+}
+
+message SendCommentRequest {
+  int64 friendCircleId = 1;
+  Comment comment = 2;
+}
+
+message SendCommentResponse {
+  bool succeed = 1;
+}
+
+enum ThumbType {
+  THUMB_UP = 0;
+  THUMB_DOWN = 1;
+}
+
+message ThumbRequest {
+  string userId = 1;
+  int64 friendCircleId = 2;
+  ThumbType type = 3;
+}
+
+message ThumbResponse {
+  bool succeed = 1;
+}
