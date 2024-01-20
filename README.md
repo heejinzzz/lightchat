@@ -7,7 +7,7 @@
 ---
 
 ## APP 下载
-轻聊 APP 下载链接：[轻聊.apk](https://pan.xunlei.com/s/VNKYt2mbHm-g19zWBYnm63LsA1?pwd=ng98)
+轻聊 APP 下载链接：[轻聊.apk](https://pan.baidu.com/s/182aOs9URIu0RVD6Jcow51g?pwd=wc12)
 
 ## 详细介绍
 * 轻聊服务端架构与部署：[lightchat_server](lightchat_server)

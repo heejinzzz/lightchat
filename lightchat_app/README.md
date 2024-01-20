@@ -4,7 +4,7 @@
 
 轻聊 APP 基于 Flutter 开发。
 
-下载链接：[轻聊.apk](https://pan.xunlei.com/s/VNKYt2mbHm-g19zWBYnm63LsA1?pwd=ng98)
+下载链接：[轻聊.apk](https://pan.baidu.com/s/182aOs9URIu0RVD6Jcow51g?pwd=wc12)
 
 ## 预览
 
